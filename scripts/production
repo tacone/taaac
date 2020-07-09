@@ -1,5 +1,8 @@
 #!/bin/bash
 
+SCRIPTS=$(dirname "$0")
+source $SCRIPTS/lib/config
+
 COMMON="-f docker-compose.yml"
 NODE="-f docker/node/docker-compose.yml"
 HASURA="-f docker/hasura/docker-compose.yml"
