@@ -3,7 +3,7 @@ version: '3.4'
 services:
     node:
         environment:
-          JS_TRACKER: |
+          NEXT_PUBLIC_JS_TRACKER: |
             <!-- Matomo -->
             <script type="text/javascript">
                 var _paq = window._paq || [];

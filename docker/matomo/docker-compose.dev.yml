@@ -1,3 +1,6 @@
 version: '3.4'
 
-services: {}
+services:
+    matomo-db:
+        ports:
+            - 7004:3306
