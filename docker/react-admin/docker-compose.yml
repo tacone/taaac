@@ -1,0 +1,22 @@
+version: '3.4'
+
+services:
+  react-admin:
+    image: node:12-alpine
+    volumes:
+      - ./admin:/app
+      - ./data/admin/npm:/root/.npm
+      - /tmp/devday/admin:/tmp
+    restart: "always"
+    environment:
+      - NODE_ENV=production
+      - GRAPHQL_ENDPOINT
+    working_dir: /app
+    command: yarn start
+    ports:
+      - ${ADMIN_PORT:-7005}:3000
+    # create-react-app needs this, who knows why
+    # see: admin/node_modules/react-scripts/scripts/start.js:168
+    # see: https://mherman.org/blog/dockerizing-a-react-app/
+    stdin_open: true
+    tty: true

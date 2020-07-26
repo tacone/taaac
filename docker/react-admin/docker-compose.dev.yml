@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  react-admin:
+    restart: "no"
+    environment:
+      - NODE_ENV=development
+    command: yarn start

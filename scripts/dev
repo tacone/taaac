@@ -8,5 +8,7 @@ NODE="-f docker/node/docker-compose.yml -f docker/node/docker-compose.dev.yml"
 HASURA="-f docker/hasura/docker-compose.yml -f docker/hasura/docker-compose.dev.yml"
 POSTGRES="-f docker/postgres/docker-compose.yml -f docker/postgres/docker-compose.dev.yml"
 MATOMO="-f docker/matomo/docker-compose.yml -f docker/matomo/docker-compose.dev.yml"
+ADMIN="-f docker/react-admin/docker-compose.yml -f docker/react-admin/docker-compose.dev.yml"
 
-docker-compose $COMMON $NODE $POSTGRES $HASURA $MATOMO "$@"
+
+docker-compose $COMMON $NODE $POSTGRES $HASURA $MATOMO $ADMIN "$@"
