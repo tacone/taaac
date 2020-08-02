@@ -1,0 +1,17 @@
+version: '3.4'
+
+services:
+  sapper:
+    image: node:12-alpine
+    volumes:
+      - ./sapper:/app
+      - ./data/sapper/npm:/root/.npm
+      - /tmp/devday/sapper:/tmp
+    restart: "always"
+    environment:
+      - NODE_ENV=production
+      - GRAPHQL_ENDPOINT
+    working_dir: /app
+    command: ${SAPPER_COMMAND:-yarn start}
+    ports:
+      - ${SAPPER_PORT:-7006}:3000
