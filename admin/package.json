@@ -14,7 +14,7 @@
     "react-scripts": "3.4.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "FORCE_COLOR=true react-scripts start | cat # FORCE_COLOR / cat prevents console clearing",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
