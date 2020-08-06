@@ -2,7 +2,7 @@ version: '3.4'
 
 services:
   hasura:
-    image: hasura/graphql-engine:v1.2.2
+    image: hasura/graphql-engine:latest
     ports:
       - ${HASURA_PORT:-7002}:8080
     volumes:
