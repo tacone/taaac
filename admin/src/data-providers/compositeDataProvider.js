@@ -1,15 +1,22 @@
+import { convertLegacyDataProvider } from "ra-core/lib";
+
 class CompositeDataProvider {
   constructor(dataProviders) {
-    console.log('ciao')
-    this.dataProviders = dataProviders;
+    this.dataProviders = dataProviders.map((provider) => {
+      if (typeof provider.dataProvider !== "function") {
+        return provider;
+      }
+      return {
+        ...provider,
+        dataProvider: convertLegacyDataProvider(provider.dataProvider),
+      };
+    });
   }
 
   _delegate(name, resource, params) {
-    console.log('_delegate', name, resource, params)
     const { dataProvider } = this.dataProviders.find((dp) =>
       dp.resources.includes(resource)
     );
-
     return dataProvider[name](resource, params);
   }
 
