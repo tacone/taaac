@@ -13,17 +13,18 @@ services:
       # mandatory to fix the mattermost cli https://github.com/mattermost/mattermost-docker/issues/399#issuecomment-508991021
       MM_SQLSETTINGS_DATASOURCE: "postgres://${MATTERMOST_DB_USER}:${MATTERMOST_DB_PASSWORD}@mattermost-db:5432/${MATTERMOST_DB_NAME}?sslmode=disable&connect_timeout=10"
     volumes:
-      - mattermost_config:/mattermost/config
-      - mattermost_data:/mattermost/data
-      - mattermost_logs:/mattermost/logs
-      - mattermost_plugins:/mattermost/plugins
-      - mattermost_client_plugins:/mattermost/client/plugins
+      - ./data/mattermost/config:/mattermost/config
+      - ./data/mattermost/data:/mattermost/data
+      - ./data/mattermost/logs:/mattermost/logs
+      - ./data/mattermost/plugins:/mattermost/plugins
+      - ./data/mattermost/client_plugins:/mattermost/client/plugins
     ports:
-      - 8000:8000
+      - ${MATTERMOST_PORT:-7007}:8000
+    user: root
   mattermost-db:
     image: eugenmayer/mattermost-db:team-${VERSION}
     volumes:
-      - mattermost_db:/var/lib/postgresql/data
+      - ./data/mattermost/db:/var/lib/postgresql/data
     environment:
       POSTGRES_DB: ${MATTERMOST_DB_NAME}
       POSTGRES_USER: ${MATTERMOST_DB_USER}
@@ -31,17 +32,3 @@ services:
       POSTGRES_ENCODING: "UNICODE"
       POSTGRES_COLLATE: "C"
       POSTGRES_COLLATE_TYPE: "C"
-
-volumes:
-  mattermost_config:
-    driver: local
-  mattermost_data:
-    driver: local
-  mattermost_logs:
-    driver: local
-  mattermost_plugins:
-    driver: local
-  mattermost_client_plugins:
-    driver: local
-  mattermost_db:
-    driver: local

@@ -10,6 +10,6 @@ POSTGRES="-f docker/postgres/docker-compose.yml -f docker/postgres/docker-compos
 MATOMO="-f docker/matomo/docker-compose.yml -f docker/matomo/docker-compose.dev.yml"
 ADMIN="-f docker/react-admin/docker-compose.yml -f docker/react-admin/docker-compose.dev.yml"
 SAPPER="-f docker/sapper/docker-compose.yml -f docker/sapper/docker-compose.dev.yml"
+MATTERMOST="-f docker/mattermost/docker-compose.yml -f docker/mattermost/docker-compose.dev.yml"
 
-
-docker-compose $COMMON $NODE $POSTGRES $HASURA $MATOMO $ADMIN $SAPPER "$@"
+docker-compose $COMMON $NODE $POSTGRES $HASURA $MATOMO $ADMIN $SAPPER $MATTERMOST "$@"
