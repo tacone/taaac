@@ -12,4 +12,4 @@ ADMIN="-f docker/react-admin/docker-compose.yml"
 SAPPER="-f docker/sapper/docker-compose.yml -f docker/sapper/docker-compose.dev.yml"
 
 
-docker-compose $COMMON $NODE $POSTGRES $HASURA $MATOMO $SAPPER "$@"
+docker-compose $COMMON $NODE $POSTGRES $HASURA $MATOMO $ADMIN $SAPPER "$@"
