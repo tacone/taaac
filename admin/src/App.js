@@ -4,7 +4,9 @@ import jsonServerProvider from "ra-data-json-server";
 import * as React from "react";
 import { Admin, ListGuesser, Resource } from "react-admin";
 import CompositeDataProvider from "./data-providers/compositeDataProvider";
+import { createBrowserHistory as createHistory } from 'history';
 
+const history = createHistory()
 
 const dataProvider = new CompositeDataProvider([
   {
@@ -21,7 +23,7 @@ const dataProvider = new CompositeDataProvider([
 ]);
 
 const App = () => (
-  <Admin dataProvider={dataProvider}>
+  <Admin dataProvider={dataProvider} history={history}>
     <Resource name="users" list={ListGuesser} />
     <Resource name="tasks" list={ListGuesser} />
   </Admin>
