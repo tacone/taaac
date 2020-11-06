@@ -5,4 +5,5 @@ services:
     restart: "no"
     environment:
       - NODE_ENV=development
-    command: yarn run dev
+      # - ${SAPPER_DEV_PORT:-7056}:10000
+    command: yarn run dev --dev-port ${SAPPER_PORT:-7006}
