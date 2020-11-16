@@ -11,6 +11,8 @@ services:
     environment:
       - NODE_ENV=production
       - GRAPHQL_ENDPOINT
+      - VIRTUAL_HOST=sapper.local
+      - LETSENCRYPT_HOST=sapper.local
     working_dir: /app
     command: ${SAPPER_COMMAND:-yarn start}
     ports:
