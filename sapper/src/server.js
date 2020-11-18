@@ -9,7 +9,9 @@ const dev = NODE_ENV === "development";
 
 const devServerMiddleware = dev
   ? createProxyMiddleware({
-      target: "http://localhost:7006",
+      // TODO: change target with an env var pointing to
+      // the external port
+      target: `http://localhost:7006`,
       changeOrigin: true,
     })
   : (req, res, next) => {

@@ -3,6 +3,9 @@ version: '3.4'
 services:
   sapper:
     restart: "no"
+    build:
+      args:
+      - DEPS_INSTALL=yarn
     environment:
       - NODE_ENV=development
       # - ${SAPPER_DEV_PORT:-7056}:10000

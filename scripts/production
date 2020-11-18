@@ -1,7 +1,12 @@
 #!/bin/bash
 
 SCRIPTS=$(dirname "$0")
+ROOT=$(realpath $SCRIPTS/..)
+
 source $SCRIPTS/lib/config
+source $SCRIPTS/lib/make-dockerignore
+
+make-dockerignore sapper
 
 COMMON="-f docker-compose.yml"
 NODE="-f docker/node/docker-compose.yml"
@@ -12,5 +17,6 @@ ADMIN="-f docker/react-admin/docker-compose.yml"
 SAPPER="-f docker/sapper/docker-compose.yml"
 MATTERMOST="-f docker/mattermost/docker-compose.yml"
 FUSIONAUTH="-f docker/fusionauth/docker-compose.yml"
+NGINX="-f docker/nginx/docker-compose.yml -f docker/nginx/docker-compose.dev.yml"
 
-docker-compose $COMMON $NODE $POSTGRES $HASURA $MATOMO $ADMIN $SAPPER $FUSIONAUTH $MATTERMOST "$@"
+docker-compose $COMMON $NGINX $NODE $POSTGRES $HASURA $MATOMO $ADMIN $SAPPER $FUSIONAUTH $MATTERMOST "$@"

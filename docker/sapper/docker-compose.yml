@@ -2,7 +2,13 @@ version: '3.4'
 
 services:
   sapper:
-    image: node:12-alpine
+    image: fun-sapper
+    build:
+      context: ./
+      dockerfile: ./docker/sapper/Dockerfile
+      args:
+      - DEPS_INSTALL=yarn
+      - NODE_ENV=production
     volumes:
       - ./sapper:/app
       - ./data/sapper/npm:/root/.npm
