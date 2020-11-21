@@ -5,12 +5,16 @@ COPY ./sapper/package.json ./sapper/yarn.lock /deps/
 
 WORKDIR /deps
 
+ARG BUILD_COMMAND
+ENV BUILD_COMMAND ${BUILD_COMMAND}
+
 ARG NODE_ENV
 ENV NODE_ENV ${NODE_ENV}
+
 RUN echo 'NODE_ENV set to '${NODE_ENV}''
 
 ARG DEPS_INSTALL
-RUN echo ${DEPS_INSTALL} && ${DEPS_INSTALL} && yarn add build # see: https://github.com/sveltejs/sapper/issues/1108
+RUN echo ${DEPS_INSTALL} && ${DEPS_INSTALL}
 
 # copy the application code
 COPY ./sapper /app
@@ -21,5 +25,8 @@ RUN mv -f package.json /app && mv -f yarn.lock /app && cp -rp node_modules /app/
 
 WORKDIR /app
 
-# build the app
-RUN [ "$NODE_ENV" = 'production' ] && yarn run build || echo 'Skipping build'
+# if $BUILD_COMMAND is defined, export the app as static files
+RUN if [ "$NODE_ENV" = 'production' ]; then [ "$BUILD_COMMAND" ] && $BUILD_COMMAND || echo 'Skipping export'; fi
+
+# otherwise build the app as a node app
+RUN if [ "$NODE_ENV" = 'production' ]; then [ "$BUILD_COMMAND" ] || yarn run build || echo 'Skipping build'; fi

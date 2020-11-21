@@ -23,7 +23,7 @@ services:
       - nginx-proxy-letsencrypt
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
-      - ./data/nginx/dockergen/config/nginx.tmpl:/etc/docker-gen/templates/nginx.tmpl
+      - ./docker/nginx/nginx.tmpl:/etc/docker-gen/templates/nginx.tmpl
 
   nginx-proxy-letsencrypt:
     image: jrcs/letsencrypt-nginx-proxy-companion
@@ -42,4 +42,5 @@ volumes:
   nginx-certs:
   nginx-vhost:
   nginx-html:
+  static-website:
 

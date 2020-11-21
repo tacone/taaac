@@ -19,4 +19,6 @@ MATTERMOST="-f docker/mattermost/docker-compose.yml"
 FUSIONAUTH="-f docker/fusionauth/docker-compose.yml"
 NGINX="-f docker/nginx/docker-compose.yml -f docker/nginx/docker-compose.dev.yml"
 
-docker-compose $COMMON $NGINX $NODE $POSTGRES $HASURA $MATOMO $ADMIN $SAPPER $FUSIONAUTH $MATTERMOST "$@"
+FEATURES="-f docker/_features/static-sapper/docker-compose.yml"
+
+docker-compose $COMMON $NGINX $NODE $POSTGRES $HASURA $MATOMO $ADMIN $SAPPER $FUSIONAUTH $MATTERMOST $FEATURES "$@"

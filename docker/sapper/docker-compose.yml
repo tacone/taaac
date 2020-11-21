@@ -10,16 +10,20 @@ services:
       - DEPS_INSTALL=yarn
       - NODE_ENV=production
     volumes:
-      - ./sapper:/app
       - ./data/sapper/npm:/root/.npm
       - /tmp/devday/sapper:/tmp
+
     restart: "always"
     environment:
       - NODE_ENV=production
       - GRAPHQL_ENDPOINT
       - VIRTUAL_HOST=sapper.local
       - LETSENCRYPT_HOST=sapper.local
+      - HTTPS_METHOD=redirect
     working_dir: /app
     command: ${SAPPER_COMMAND:-yarn start}
     ports:
       - ${SAPPER_PORT:-7006}:3000
+
+volumes:
+  static-website:

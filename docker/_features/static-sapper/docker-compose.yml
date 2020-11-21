@@ -1,0 +1,28 @@
+version: "3.4"
+
+ # will export the sapper app as static files on build
+ # and make nginx serve them directly
+
+services:
+  nginx-proxy:
+    volumes:
+      - ./docker/_features/static-sapper/static.conf:/etc/nginx/vhost.d/sapper.local_location:ro
+      - static-website:/static:ro
+  sapper:
+    build:
+      args:
+        # this arg is handled in sapper's Dockerfile
+        - BUILD_COMMAND=yarn run export && mkdir /static && mv /app/__sapper__/export /static/website || echo 'Skipping build'
+
+    volumes:
+      - static-website:/static:ro
+
+    environment:
+      - VIRTUAL_PROTO=static
+    # don't keep the node server running
+    command: echo static export done, exiting.
+
+volumes:
+  # we need to set up a volume so nginx sees the compiled files from sapper
+  static-website:
+
