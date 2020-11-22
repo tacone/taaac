@@ -4,7 +4,10 @@ version: "3.4"
 
 services:
   nginx-proxy:
-    image: nginx:alpine
+    # image: nginx:alpine
+
+    # just like the usual nginx image, but brotli enabled
+    image: fholzer/nginx-brotli
     container_name: nginx-proxy
     ports:
       - "80:80"

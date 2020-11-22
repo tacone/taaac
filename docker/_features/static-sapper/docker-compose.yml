@@ -6,20 +6,31 @@ version: "3.4"
 services:
   nginx-proxy:
     volumes:
+      # conf file enabling static serving
       - ./docker/_features/static-sapper/static.conf:/etc/nginx/vhost.d/sapper.local_location:ro
+      # we need a volume to let nginx see the rendered files
       - static-website:/static:ro
   sapper:
     build:
       args:
         # this arg is handled in sapper's Dockerfile
-        - BUILD_COMMAND=yarn run export && mkdir /static && mv /app/__sapper__/export /static/website || echo 'Skipping build'
+        # notice we build gzip and brotli versions of each file
+        BUILD_COMMAND: >-
+          yarn run export
+          && mkdir /static
+          && mv /app/__sapper__/export /static/website
+          && find /app/__sapper__/export -type f | grep -v '\.br$$' | grep -v '\.gz$$' | tr '\n' '\0' | xargs -n1 -0 brotli
+          && find /app/__sapper__/export -type f | grep -v '\.br$$' | grep -v '\.gz$$' | tr '\n' '\0' | xargs -n1 -0 gzip -9 -k
+          || echo 'Skipping build'
 
     volumes:
-      - static-website:/static:ro
+      # we need a volume to let nginx see the rendered files
+      - static-website:/static
 
     environment:
+      # we rely on a custom nginx.tmpl to enable `static` mode
       - VIRTUAL_PROTO=static
-    # don't keep the node server running
+    # don't keep the node server running, we don't need it anymore
     command: echo static export done, exiting.
 
 volumes:

@@ -1,5 +1,8 @@
 FROM node:12-alpine
 
+# we need it to brotli compress the static export
+RUN apk add brotli
+
 # copy the deps files, download and cache dependencies
 COPY ./sapper/package.json ./sapper/yarn.lock /deps/
 
