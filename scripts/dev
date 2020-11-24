@@ -5,6 +5,7 @@ ROOT=$(realpath $SCRIPTS/..)
 
 source $SCRIPTS/lib/config
 source $SCRIPTS/lib/make-dockerignore
+source $SCRIPTS/lib/custom-commands
 
 make-dockerignore sapper
 
@@ -18,5 +19,7 @@ SAPPER="-f docker/sapper/docker-compose.yml -f docker/sapper/docker-compose.dev.
 MATTERMOST="-f docker/mattermost/docker-compose.yml -f docker/mattermost/docker-compose.dev.yml"
 FUSIONAUTH="-f docker/fusionauth/docker-compose.yml -f docker/fusionauth/docker-compose.dev.yml"
 NGINX="-f docker/nginx/docker-compose.yml -f docker/nginx/docker-compose.dev.yml"
+
+handle-custom-commands "$@"
 
 docker-compose $COMMON $NGINX $NODE $POSTGRES $HASURA $MATOMO $ADMIN $SAPPER $FUSIONAUTH $MATTERMOST "$@"
