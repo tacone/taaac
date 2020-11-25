@@ -27,6 +27,7 @@ services:
       FUSIONAUTH_APP_RUNTIME_MODE: production
       FUSIONAUTH_APP_URL: http://fusionauth:${FUSIONAUTH_PORT:-7008}
       SEARCH_TYPE: database
+      FUSIONAUTH_APP_KICKSTART_FILE: /usr/local/fusionauth/kickstart/kickstart.json
 
     networks:
      - fusionauth-db
@@ -35,6 +36,9 @@ services:
       - ${FUSIONAUTH_PORT:-7008}:9011
     volumes:
       - ./data/fusionauth/config:/usr/local/fusionauth/config
+      # kickstart gets executed when there is no API Key defined.
+      # See: https://fusionauth.io/docs/v1/tech/installation-guide/kickstart/
+      - ./docker/fusionauth/kickstart.json:/usr/local/fusionauth/kickstart/kickstart.json:ro
 
 networks:
   fusionauth-db:
