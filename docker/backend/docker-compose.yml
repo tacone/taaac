@@ -1,0 +1,22 @@
+version: '3.4'
+
+services:
+  backend:
+    image: survey-node
+    build:
+      context: ./
+      dockerfile: ./docker/backend/Dockerfile
+    restart: "always"
+    volumes:
+      - ./backend:/app
+      - ./data/node/npm:/root/.npm
+      - /tmp/survey/backend:/tmp
+    environment:
+      - NODE_ENV=production
+      - NEXT_PUBLIC_GRAPHQL_ENDPOINT=${GRAPHQL_ENDPOINT}
+      - NEXT_TELEMETRY_DISABLED=1
+      - DATABASE_URL=${POSTGRES_DATABASE_URL}
+    working_dir: /app
+    command: yarn run start
+    ports:
+      - ${BACKEND_PORT:-7001}:3000
