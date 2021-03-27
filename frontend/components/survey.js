@@ -15,9 +15,10 @@ const validateEmail = (value) =>
 const composeValidators = (...validators) => (value) =>
   validators.reduce((error, validator) => error || validator(value), undefined);
 
-const Survey = () => {
+const Survey = ({referrer}) => {
   const [serverError, setServerError] = useState("");
   const router = useRouter();
+
   const mutation = gql`
     mutation(
       $name: String!
@@ -87,7 +88,6 @@ const Survey = () => {
       requestData[k] = v;
     }
 
-    const referrer = document.referrer || null;
     try {
       await saveSubmission({
         variables: { referrer, ...requestData },
@@ -97,7 +97,7 @@ const Survey = () => {
       return { [FORM_ERROR]: "Login Failed" };
     }
     setServerError("");
-    router.push("/thank-you");
+    router.push(`/thank-you?from=${escape(referrer)}`);
   };
   return (
     <Form

@@ -1,8 +1,13 @@
 import Layout from "layout";
 import Head from "next/head";
 import Survey from "components/survey";
+import { useRouter } from "next/router";
 
 export default function Home() {
+  const router = useRouter()
+
+  const from = router.query.from
+  const goBackUrl = from ? from : 'https://www.lokky.it/';
   return (
     <Layout>
       <Head>
@@ -15,7 +20,7 @@ export default function Home() {
         considerazione
       </p>
       <p>
-        <a className="btn btn-primary" href="https://www.lokky.it/">
+        <a className="btn btn-primary" href={goBackUrl}>
           Torna al sito Lokky
         </a>
       </p>

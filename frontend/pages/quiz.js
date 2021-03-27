@@ -1,8 +1,18 @@
 import Layout from "layout";
 import Head from "next/head";
-import Survey from "components/survey"
+import Survey from "components/survey";
+import { useRouter } from "next/router";
 
 export default function Home() {
+  const router = useRouter();
+  const from = router.query.from;
+  if (typeof document !== "undefined") {
+    const referrer = document.referrer;
+    if (referrer && !from) {
+      router.push(`/quiz?from=${escape(referrer)}`);
+    }
+  }
+
   return (
     <Layout>
       <Head>
@@ -19,8 +29,7 @@ export default function Home() {
         </span>
       </p>
 
-      <Survey />
-
+      <Survey referrer={from} />
     </Layout>
   );
 }
