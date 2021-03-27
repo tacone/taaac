@@ -21,9 +21,9 @@ RUN [ "$NODE_ENV" = 'production' ] && yarn --frozen-lockfile || yarn
 # copy the application code
 COPY ./backend /app
 
-# copy deps files back into the source tree
-RUN mv -f package.json /app && mv -f yarn.lock /app && cp -rp node_modules /app/ \
-    && rm node_modules -rf && rmdir /deps
+# move deps files back into the source tree
+RUN mv -f package.json /app && mv -f yarn.lock /app && rm /app/node_modules -rf  && mv node_modules /app/ && rmdir /deps
+
 
 WORKDIR /app
 

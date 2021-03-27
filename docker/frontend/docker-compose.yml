@@ -8,7 +8,6 @@ services:
       dockerfile: ./docker/frontend/Dockerfile
     restart: "always"
     volumes:
-      - ./frontend:/app
       - ./data/node/npm:/root/.npm
       - /tmp/survey/frontend:/tmp
     environment:
