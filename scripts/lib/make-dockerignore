@@ -1,6 +1,13 @@
 #!/usr/bin/env bash
 
-# rebuilds .dockerignore and whitelists abritrary directories
+# rebuilds (and totally replace).dockerignore to whitelists
+# arbitrary directories.
+# you have to run this withevery folder you want to refer to
+# inside your Dockerfile(s)
+#
+# example (for directories frontend and backend):
+# make-dockerignore frontend backend
+
 make-dockerignore() {
     local f=$ROOT/.dockerignore
 

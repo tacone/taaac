@@ -3,7 +3,7 @@ import { Field, ObjectType } from "type-graphql";
 @ObjectType()
 export class SubmissionStat {
   @Field()
-  name: string;
+  value: string;
 
   @Field()
   count: number;
@@ -11,8 +11,8 @@ export class SubmissionStat {
   @Field()
   ratio: number;
 
-  constructor(name: string, count: number, ratio:number) {
-    this.name = name;
+  constructor(value: string, count: number, ratio:number) {
+    this.value = value;
     this.count = count;
     this.ratio = ratio;
   }

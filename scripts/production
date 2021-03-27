@@ -7,8 +7,7 @@ source $SCRIPTS/lib/config
 source $SCRIPTS/lib/make-dockerignore
 source $SCRIPTS/lib/custom-commands
 
-make-dockerignore frontend
-make-dockerignore backend
+make-dockerignore frontend backend
 
 COMMON="-f docker-compose.yml -f docker-compose.dev.yml"
 FRONTEND="-f docker/frontend/docker-compose.yml"

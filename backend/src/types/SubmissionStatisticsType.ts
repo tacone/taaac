@@ -26,21 +26,21 @@ export default class SubmissionStatisticsType {
     return await Submission.createQueryBuilder("submission").getCount();
   }
 
-  async submissions_stats(@Arg("name", (type) => String) name: String) {
+  async submissions_stats(field: String) {
     const total = await Submission.createQueryBuilder("submission")
-      .where(`${name} is not null`)
+      .where(`${field} is not null`)
       .getCount();
 
     const data = await Submission.createQueryBuilder("submission")
-      .select(`${name}`, "name")
-      .addSelect(`count(${name})`, "count")
-      .groupBy(`submission.${name}`)
-      .where(`${name} is not null`)
+      .select(`${field}`, "value")
+      .addSelect(`count(${field})`, "count")
+      .groupBy(`submission.${field}`)
+      .where(`${field} is not null`)
       .getRawMany();
 
     const result = data.map((record) => {
       return new SubmissionStat(
-        record.name,
+        record.value,
         record.count,
         (100 * record.count) / total
       );

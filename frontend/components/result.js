@@ -1,33 +1,42 @@
 import humanizeString from "humanize-string";
 import React from "react";
 
-function Result({ name }) {
+function Result({ name, records }) {
+  let currentKey = 0;
+  const formatPercent = (value) => (Math.round(value * 100) / 100).toFixed(2);
   return (
     <>
-      <table className="table results-table">
+      <h3>{humanizeString(name)}</h3>
+      <table className="table results-table table-bordered">
         <thead className="thead-dark">
           <tr>
             <th scope="col">{humanizeString(name)}</th>
-            <th scope="col">Entries</th>
-            <th scope="col">%</th>
+            <th scope="col" className="numericColumn">
+              Entries
+            </th>
+            <th scope="col" className="numericColumn">
+              %
+            </th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-          </tr>
-          <tr>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-          </tr>
-          <tr>
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td>@twitter</td>
-          </tr>
+          {records && records.length ? (
+            records.map((r) => {
+              return (
+                <tr key={currentKey++}>
+                  <td>{r.value}</td>
+                  <td className="numericColumn">{r.count}</td>
+                  <td className="numericColumn">{formatPercent(r.ratio)} %</td>
+                </tr>
+              );
+            })
+          ) : (
+            <tr>
+              <td className="text-muted text-center" colSpan="100">
+                no data yet
+              </td>
+            </tr>
+          )}
         </tbody>
       </table>
     </>

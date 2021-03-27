@@ -16,14 +16,13 @@ ENV NODE_ENV ${NODE_ENV}
 
 RUN echo 'NODE_ENV set to '${NODE_ENV}''
 
-RUN yarn
+RUN [ "$NODE_ENV" = 'production' ] && yarn --frozen-lockfile || yarn
 
 # copy the application code
 COPY ./frontend /app
 
 # copy deps files back into the source tree
-RUN mv -f package.json /app && mv -f yarn.lock /app && cp -rp node_modules /app/ \
-    && rm node_modules -rf &&rmdir /deps
+RUN mv -f package.json /app && mv -f yarn.lock /app && rm /app/node_modules -rf  && mv node_modules /app/ && rmdir /deps
 
 WORKDIR /app
 
