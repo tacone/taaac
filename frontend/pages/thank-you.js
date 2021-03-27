@@ -1,13 +1,12 @@
 import Layout from "layout";
 import Head from "next/head";
-import Survey from "components/survey";
 import { useRouter } from "next/router";
 
 export default function Home() {
-  const router = useRouter()
+  const router = useRouter();
 
-  const from = router.query.from
-  const goBackUrl = from ? from : 'https://www.lokky.it/';
+  const from = router.query.from;
+  const goBackUrl = from ? from : "https://www.lokky.it/";
   return (
     <Layout>
       <Head>

@@ -1,6 +1,6 @@
+import Survey from "components/survey";
 import Layout from "layout";
 import Head from "next/head";
-import Survey from "components/survey";
 import { useRouter } from "next/router";
 
 export default function Home() {

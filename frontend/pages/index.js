@@ -14,9 +14,7 @@ export default function Home() {
           Comincia
         </a>
       </p>
-      <p>
-        &nbsp;
-      </p>
+      <p>&nbsp;</p>
       <p>
         <a href="/results" className="btn btn-success btn-lg">
           Risultati

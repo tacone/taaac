@@ -3,7 +3,7 @@ const Layout = (props) => {
     <div className="container container-md">
       <h1 className="header">
         <a href="/">
-        <img className="logo" src="/images/logo.svg" />
+          <img className="logo" src="/images/logo.svg" />
         </a>
         The survey
       </h1>

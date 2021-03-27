@@ -15,7 +15,7 @@ const validateEmail = (value) =>
 const composeValidators = (...validators) => (value) =>
   validators.reduce((error, validator) => error || validator(value), undefined);
 
-const Survey = ({referrer}) => {
+const Survey = ({ referrer }) => {
   const [serverError, setServerError] = useState("");
   const router = useRouter();
 
@@ -46,33 +46,7 @@ const Survey = ({referrer}) => {
       }
     }
   `;
-  // const mutation = gql`
-  //   mutation(
-  //     $name: String
-  //     $email_address: String
-  //     $age: Int
-  //     $gender: String
-  //     $country: String
-  //     $experience_rating: String
-  //     $suggested_improvements: String
-  //     $referrer: String
-  //   ) {
-  //     insert_submissions_one(
-  //       object: {
-  //         name: $name
-  //         email_address: $email_address
-  //         age: $age
-  //         gender: $gender
-  //         country: $country
-  //         experience_rating: $experience_rating
-  //         suggested_improvements: $suggested_improvements
-  //         referrer: $referrer
-  //       }
-  //     ) {
-  //       id
-  //     }
-  //   }
-  // `;
+
   const [saveSubmission] = useMutation(mutation);
 
   const onSubmit = async (values) => {
