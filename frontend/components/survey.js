@@ -9,12 +9,9 @@ import { Form } from "react-final-form";
 
 const validateRequired = (value) => (value ? undefined : "Required");
 const validateNumber = (value) =>
-  isNaN(value) ? "Must be a number" : undefined;
+  isNaN(value) && value !== 0 && value ? "Must be a number" : undefined;
 const validateEmail = (value) =>
   emailValidator.validate(value) ? undefined : "Must be a valid email address";
-
-const minValue = (min) => (value) =>
-  isNaN(value) || value >= min ? undefined : `Should be greater than ${min}`;
 const composeValidators = (...validators) => (value) =>
   validators.reduce((error, validator) => error || validator(value), undefined);
 
@@ -25,7 +22,7 @@ const Survey = () => {
     mutation(
       $name: String!
       $email_address: String!
-      $age: Int!
+      $age: Int
       $gender: String
       $country: String
       $experience_rating: Int
@@ -125,7 +122,7 @@ const Survey = () => {
           <Fieldset
             name="age"
             field={<input type="text" />}
-            validate={composeValidators(validateNumber, minValue(18))}
+            validate={composeValidators(validateNumber)}
           ></Fieldset>
 
           <Fieldset

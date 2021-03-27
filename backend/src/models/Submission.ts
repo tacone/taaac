@@ -1,10 +1,9 @@
 import { Entity, BaseEntity, PrimaryGeneratedColumn, Column } from "typeorm";
-import { ObjectType, Field, ID, Int} from "type-graphql";
+import { ObjectType, Field, ID, Int } from "type-graphql";
 
 @ObjectType()
-@Entity({name:'submissions'})
+@Entity({ name: "submissions" })
 export class Submission extends BaseEntity {
-
   @Field(() => ID)
   @PrimaryGeneratedColumn()
   id: string;
@@ -18,7 +17,7 @@ export class Submission extends BaseEntity {
   email_address: string;
 
   @Field(() => Int)
-  @Column({ type: "int" })
+  @Column({ type: "int", default: null })
   age: number;
 
   @Field(() => String)
